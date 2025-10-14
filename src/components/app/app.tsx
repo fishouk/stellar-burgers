@@ -7,7 +7,9 @@ import {
   ResetPassword,
   Profile,
   ProfileOrders,
-  NotFound404
+  NotFound404,
+  Ingredient,
+  Order
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
@@ -28,7 +30,7 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const backgroundLocation = location.state?.backgroundLocation;
+  const backgroundLocation = location.state?.background;
 
   useEffect(() => {
     dispatch(getUser());
@@ -92,13 +94,13 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path='/feed/:number' element={<OrderInfo />} />
-        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route path='/feed/:number' element={<Order />} />
+        <Route path='/ingredients/:id' element={<Ingredient />} />
         <Route
           path='/profile/orders/:number'
           element={
             <ProtectedRoute>
-              <OrderInfo />
+              <Order />
             </ProtectedRoute>
           }
         />

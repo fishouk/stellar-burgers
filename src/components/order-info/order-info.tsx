@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from '../../services/store';
 import { useParams, useLocation } from 'react-router-dom';
 import { getFeeds } from '../../services/slices/feedsSlice';
 import { getUserOrders } from '../../services/slices/userOrdersSlice';
-import { getIngredients } from '../../services/slices/ingredientsSlice';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
@@ -27,12 +26,6 @@ export const OrderInfo: FC = () => {
 
   const orders = isProfileOrders ? userOrders : feedOrders;
   const ordersLoading = isProfileOrders ? userOrdersLoading : feedLoading;
-
-  useEffect(() => {
-    if (!ingredients.length && !ingredientsLoading) {
-      dispatch(getIngredients());
-    }
-  }, [dispatch, ingredients.length, ingredientsLoading]);
 
   useEffect(() => {
     if (!orders.length && !ordersLoading) {

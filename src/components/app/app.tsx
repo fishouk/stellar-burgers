@@ -19,12 +19,14 @@ import {
   Modal,
   OrderInfo,
   IngredientDetails,
-  ProtectedRoute
+  ProtectedRoute,
+  OrderInfoModal
 } from '@components';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getUser } from '../../services/slices/userSlice';
+import { getIngredients } from '../../services/slices/ingredientsSlice';
 
 const App = () => {
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUser());
+    dispatch(getIngredients());
   }, [dispatch]);
 
   const handleModalClose = () => {
@@ -111,11 +114,7 @@ const App = () => {
         <Routes>
           <Route
             path='/feed/:number'
-            element={
-              <Modal title='' onClose={handleModalClose}>
-                <OrderInfo />
-              </Modal>
-            }
+            element={<OrderInfoModal onClose={handleModalClose} />}
           />
           <Route
             path='/ingredients/:id'
@@ -129,9 +128,7 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title='' onClose={handleModalClose}>
-                  <OrderInfo />
-                </Modal>
+                <OrderInfoModal onClose={handleModalClose} />
               </ProtectedRoute>
             }
           />

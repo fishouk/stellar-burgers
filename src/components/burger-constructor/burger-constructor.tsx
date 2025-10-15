@@ -29,12 +29,15 @@ export const BurgerConstructor: FC = () => {
       constructorItems.bun._id
     ];
 
-    dispatch(createOrder(ingredientIds));
+    dispatch(createOrder(ingredientIds)).then((result) => {
+      if (result.type === 'order/createOrder/fulfilled') {
+        dispatch(clearConstructor());
+      }
+    });
   };
 
   const closeOrderModal = () => {
     dispatch(clearOrder());
-    dispatch(clearConstructor());
   };
 
   const price = useMemo(
